@@ -124,3 +124,24 @@ def heapsort(arr):
         heap.size -= 1
         heap.max_heapify(0)
     return heap.heap # Ordered array
+
+def partition(arr, start, end):
+    """ Partitions an array between indexes start and end for quicksort """
+    x = arr[end]
+    i = start-1 # Pointer for minor elements
+    for j in range(start, end):
+        if arr[j] <= x:
+            i += 1
+            arr[j], arr[i] = arr[i], arr[j]
+    arr[end], arr[i+1] = arr[i+1], arr[end] # Position partition number in its place
+    return i+1
+
+def quicksort(arr, start, end):
+    """ Implements in-place quicksort
+    
+        prom O(n*log(n))
+    """
+    if start < end:
+        partition_index = partition(arr, start, end)
+        quicksort(arr, start, partition_index-1)
+        quicksort(arr, partition_index+1, end)

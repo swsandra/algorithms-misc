@@ -14,6 +14,8 @@ def main():
     # print("Heap from A: ", heap.heap)
     # print("Max extraction: ", heap.extract_max())
     # print("Heap now: ", heap.heap)
-    print("Sorting A using heapsort: ", heapsort(A))
+    # print("Sorting A using heapsort: ", heapsort(A))
+    quicksort(A, 0, len(A)-1)
+    print("Sorting A using quicksort: ", A)
 
 main()
