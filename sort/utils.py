@@ -173,3 +173,49 @@ def bubble_sort(arr):
         for j in range(n-i-1): # Last i elements are ordered (-1 to stay in range)
             if arr[j]>arr[j+1]:
                 arr[j], arr[j+1] = arr[j+1], arr[j]
+
+def counting_sort(arr, max_number):
+    """ Implements counting sort for an array with elements between 0 and max_number
+    
+        O(n)
+    """
+    count_dict = {}
+    out = arr.copy()
+
+    for i in range(max_number+1):
+        count_dict[i] = 0
+
+    for i in range(len(arr)): # Count elements
+        count_dict[arr[i]] += 1
+    
+    for i in range(1, max_number+1): # Count elements before i
+        count_dict[i] += count_dict[i-1]
+
+    for i in range(len(arr)-1, -1, -1):
+        out[count_dict[arr[i]]-1] = arr[i] # -1 in out position bc in count_dict there is the total of numbers
+        count_dict[arr[i]] -= 1
+
+    return out
+
+def bucket_sort(arr):
+    """ Implements bucket sort
+    
+        O(n)
+    """
+    n = len(arr)
+    buckets = []
+    
+    for i in range(n):
+        buckets.append([])
+
+    for x in arr:
+        buckets[math.floor(x*n)].append(x)
+
+    for bucket in buckets:
+        insertion_sort(bucket)
+
+    out = []
+    for bucket in buckets: # Concatenate buckets
+        out += bucket
+
+    return out

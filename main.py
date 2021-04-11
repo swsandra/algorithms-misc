@@ -2,7 +2,7 @@ from search.utils import *
 from sort.utils import *
 
 def main():
-    A = [3,1,7,12,67,45,8,2,10,6]
+    A = [3,1,7,12,67,45,8,2,10,6,3]
     print("A: ", A)
     # insertion_sort(A)
     # print("Sorting A using insertion sort: ", A)
@@ -19,7 +19,9 @@ def main():
     # print("Sorting A using quicksort: ", A)
     # randomized_quicksort(A, 0, len(A)-1)
     # print("Sorting A using randomized quicksort: ", A)
-    bubble_sort(A)
-    print("Sorting A using bubble sort: ", A)
+    # bubble_sort(A)
+    # print("Sorting A using bubble sort: ", A)
+    # print("Sorting A using counting sort: ", counting_sort(A, max(A)))
+    print("Sorting A using bucket sort: ", bucket_sort(list(map((lambda x: x/100), A))))
 
 main()
