@@ -1,5 +1,5 @@
-from search.utils import *
-from sort.utils import *
+from search import *
+from sort import *
 
 def main():
     A = [3,1,7,12,67,45,8,2,10,6,3]
