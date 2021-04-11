@@ -1,4 +1,5 @@
 import math
+import random
 
 def insertion_sort(arr):
     """ Implements in-place insertion sort
@@ -145,3 +146,30 @@ def quicksort(arr, start, end):
         partition_index = partition(arr, start, end)
         quicksort(arr, start, partition_index-1)
         quicksort(arr, partition_index+1, end)
+
+def randomized_partition(arr, start, end):
+    """ Implements a randomized index selection when partitioning for quicksort """
+    i = random.randint(start, end)
+    arr[i], arr[end] = arr[end], arr[i]
+    return partition(arr, start, end)
+
+def randomized_quicksort(arr, start, end):
+    """ Implements randomized quicksort
+    
+        prom O(n*log(n))
+    """
+    if start < end:
+        partition_index = randomized_partition(arr, start, end)
+        randomized_quicksort(arr, start, partition_index-1)
+        randomized_quicksort(arr, partition_index+1, end)
+
+def bubble_sort(arr):
+    """ Implements bubble sort
+    
+        O(n**2)
+    """
+    n = len(arr)
+    for i in range(n):
+        for j in range(n-i-1): # Last i elements are ordered (-1 to stay in range)
+            if arr[j]>arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]

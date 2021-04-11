@@ -15,7 +15,11 @@ def main():
     # print("Max extraction: ", heap.extract_max())
     # print("Heap now: ", heap.heap)
     # print("Sorting A using heapsort: ", heapsort(A))
-    quicksort(A, 0, len(A)-1)
-    print("Sorting A using quicksort: ", A)
+    # quicksort(A, 0, len(A)-1)
+    # print("Sorting A using quicksort: ", A)
+    # randomized_quicksort(A, 0, len(A)-1)
+    # print("Sorting A using randomized quicksort: ", A)
+    bubble_sort(A)
+    print("Sorting A using bubble sort: ", A)
 
 main()
