@@ -1,3 +1,54 @@
+class Stack:
+    
+    def __init__(self, n):
+        """ Constructor, creates a stack of size n """
+        self.top = -1 # Index of top element
+        self.length = n
+        self.array = [None] * n
+
+    def is_empty(self):
+        """ Returns whether the stack is empty or not """
+        return self.top == -1
+
+    def push(self, x):
+        """ Pushes an element in the stack """
+        if self.top+1 == self.length:
+            raise Exception("Stack overflow")
+        self.top += 1
+        self.array[self.top] = x
+    
+    def pop(self):
+        """ Pops last element from the stack """
+        if self.top == -1:
+            raise Exception("Stack underflow")
+        self.top -= 1
+        return self.array[self.top+1]
+
+    def __str__(self):
+        return str(self.array[:self.top+1])
+
+
+class Queue:
+    pass
+
+class SimpleNode:
+    pass
+
+class LinkedList:
+    pass
+
+class OrderedLinkedList:
+    pass
+
+class DoublyNode:
+    pass
+
+class DoublyLinkedList:
+    pass
+
+class CircularList:
+    pass
+
 class Heap:
     """ Max heap data structure implementation """
 
