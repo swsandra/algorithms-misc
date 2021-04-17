@@ -29,7 +29,44 @@ class Stack:
 
 
 class Queue:
-    pass
+
+    def __init__(self, n):
+        """ Constructor, creates a queue of size n """
+        self.head = 0
+        self.tail = 0
+        self.nelements = 0 # Number of elements
+        self.length = n
+        self.array = [None] * n
+
+    def is_empty(self):
+        """ Returns whether the queue is empty or not """
+        return self.nelements == 0
+
+    def enqueue(self, x):
+        """ Enqueues element x """
+        if self.nelements == self.length:
+            raise Exception("Queue overflow")
+        self.array[self.tail] = x
+        self.tail = (self.tail+1)%self.length
+        self.nelements += 1
+
+    def dequeue(self):
+        """ Dequeues an element """
+        if self.is_empty():
+            raise Exception("Queue underflow")
+        x = self.array[self.head]
+        self.head = (self.head+1)%self.length
+        self.nelements -= 1
+        return x
+
+    def __str__(self):
+        if self.nelements == 0:
+            return str([])
+        if self.head >= self.tail:
+            return str(self.array[self.head:]+self.array[:self.tail])
+        return str(self.array[self.head:self.tail])
+
+
 
 class SimpleNode:
     pass

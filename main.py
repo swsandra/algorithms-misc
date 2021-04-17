@@ -27,22 +27,45 @@ def sort_tests():
 
 def data_structures_test():
     # Stack
-    s = Stack(4)
-    s.push(2)
-    s.push(-1)
-    s.push(6)
-    s.push(21)
+    # s = Stack(4)
+    # s.push(2)
+    # s.push(-1)
+    # s.push(6)
+    # s.push(21)
+    # try:
+    #     s.push(1)
+    # except Exception as e:
+    #     print(e)
+    # print(s)
+    # print("Popping: ", s.pop(), "from ", s)
+    # print("Popping: ", s.pop(), "from ", s)
+    # print("Popping: ", s.pop(), "from ", s)
+    # print("Popping: ", s.pop(), "from ", s)
+    # try:
+    #     print("Popping: ", s.pop(), "from ", s)
+    # except Exception as e:
+    #     print(e)
+    # print(s)
+
+    # Queue
+    s = Queue(2)
+    s.enqueue(2)
+    print(s)
+    print("Dequeue: ", s.dequeue(), "from ", s)
+    s.enqueue(-1)
+    s.enqueue(6)
     try:
-        s.push(1)
+        s.enqueue(21)
     except Exception as e:
         print(e)
     print(s)
-    print("Popping: ", s.pop(), "from ", s)
-    print("Popping: ", s.pop(), "from ", s)
-    print("Popping: ", s.pop(), "from ", s)
-    print("Popping: ", s.pop(), "from ", s)
+    print("Dequeue: ", s.dequeue(), "from ", s)
+    s.enqueue(1)
+    print(s)
+    print("Dequeue: ", s.dequeue(), "from ", s)
+    print("Dequeue: ", s.dequeue(), "from ", s)
     try:
-        print("Popping: ", s.pop(), "from ", s)
+        print("Dequeue: ", s.dequeue(), "from ", s)
     except Exception as e:
         print(e)
     print(s)
