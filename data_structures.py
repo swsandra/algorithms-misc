@@ -102,11 +102,16 @@ class LinkedList:
 
     def delete(self, node):
         """ Deletes a node from the list """
-        before = self.head
-        while before != None and before.next != node: # Node before the one we want to delete
-            before = before.next
-        if before:
-            before.next = node.next
+        if not node:
+            return None
+        if node != self.head:
+            before = self.head
+            while before != None and before.next != node: # Node before the one we want to delete
+                before = before.next
+            if before:
+                before.next = node.next
+        else:
+            self.head = node.next
         return node
 
     def __str__(self):
