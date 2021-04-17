@@ -48,27 +48,44 @@ def data_structures_test():
     # print(s)
 
     # Queue
-    s = Queue(2)
-    s.enqueue(2)
-    print(s)
-    print("Dequeue: ", s.dequeue(), "from ", s)
-    s.enqueue(-1)
-    s.enqueue(6)
-    try:
-        s.enqueue(21)
-    except Exception as e:
-        print(e)
-    print(s)
-    print("Dequeue: ", s.dequeue(), "from ", s)
-    s.enqueue(1)
-    print(s)
-    print("Dequeue: ", s.dequeue(), "from ", s)
-    print("Dequeue: ", s.dequeue(), "from ", s)
-    try:
-        print("Dequeue: ", s.dequeue(), "from ", s)
-    except Exception as e:
-        print(e)
-    print(s)
+    # s = Queue(2)
+    # s.enqueue(2)
+    # print(s)
+    # print("Dequeue: ", s.dequeue(), "from ", s)
+    # s.enqueue(-1)
+    # s.enqueue(6)
+    # try:
+    #     s.enqueue(21)
+    # except Exception as e:
+    #     print(e)
+    # print(s)
+    # print("Dequeue: ", s.dequeue(), "from ", s)
+    # s.enqueue(1)
+    # print(s)
+    # print("Dequeue: ", s.dequeue(), "from ", s)
+    # print("Dequeue: ", s.dequeue(), "from ", s)
+    # try:
+    #     print("Dequeue: ", s.dequeue(), "from ", s)
+    # except Exception as e:
+    #     print(e)
+    # print(s)
+
+    # Linked list
+    L = LinkedList()
+    L.insert(2)
+    L.insert(-1)
+    L.insert(6)
+    print(L)
+    print("Searching 2 in ", L, ". Found: ", L.search(2))
+    print("Searching 6 in ", L, ". Found: ", L.search(6))
+    print("Searching 10 in ", L, ". Found: ", L.search(10))
+    node = L.search(-1)
+    L.delete(node)
+    print("Deleted ", node, "from ", L)
+    print(L)
+    node = SimpleNode(2)
+    L.delete(node)
+    print("Tried deleting newly created ", node, "from ", L)    
 
 # sort_tests()
 data_structures_test()

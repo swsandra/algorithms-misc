@@ -62,23 +62,75 @@ class Queue:
     def __str__(self):
         if self.nelements == 0:
             return str([])
-        if self.head >= self.tail:
+        if self.head >= self.tail: # To show in correct queue order
             return str(self.array[self.head:]+self.array[:self.tail])
         return str(self.array[self.head:self.tail])
 
 
-
 class SimpleNode:
-    pass
+
+    def __init__(self, x):
+        """ Constructor, creates a new simple node with element x """
+        self.val = x
+        self.next = None
+
+    def __str__(self):
+        return f"Node {self.val}"
 
 class LinkedList:
-    pass
+    
+    def __init__(self):
+        """ Constructor, creates a new empty list """
+        self.head = None
+
+    def is_empty(self):
+        """ Returns whether the list is empty or not """
+        return self.head == None
+
+    def insert(self, x):
+        """ Inserts an node with value x in the list """
+        node = SimpleNode(x)
+        node.next = self.head
+        self.head = node
+
+    def search(self, x):
+        """ Finds the node with value x or None if not present """
+        node = self.head
+        while node != None and node.val != x:
+            node = node.next
+        return node
+
+    def delete(self, node):
+        """ Deletes a node from the list """
+        before = self.head
+        while before != None and before.next != node: # Node before the one we want to delete
+            before = before.next
+        if before:
+            before.next = node.next
+        return node
+
+    def __str__(self):
+        node = self.head
+        s = "["
+        while node != None:
+            if node == self.head:
+                s += f"{node.val}"
+            else:
+                s += f", {node.val}"
+            node = node.next
+        s += "]"
+        return s
 
 class OrderedLinkedList:
     pass
 
 class DoublyNode:
-    pass
+
+    def __init__(self, x):
+        """ Constructor, creates a new doubly node with element x """
+        self.val = x
+        self.prev = None
+        self.next = None
 
 class DoublyLinkedList:
     pass
