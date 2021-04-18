@@ -77,6 +77,7 @@ class SimpleNode:
     def __str__(self):
         return f"Node {self.val}"
 
+
 class LinkedList:
     
     def __init__(self):
@@ -126,8 +127,6 @@ class LinkedList:
         s += "]"
         return s
 
-class OrderedLinkedList:
-    pass
 
 class DoublyNode:
 
@@ -137,11 +136,74 @@ class DoublyNode:
         self.prev = None
         self.next = None
 
-class DoublyLinkedList:
-    pass
+    def __str__(self):
+        return f"Doubly node {self.val}"
+
+
+class DoublyLinkedList(LinkedList):
+    
+    def insert(self, x):
+        """ Inserts an node with value x in the list """
+        node = DoublyNode(x)
+        node.next = self.head
+        if self.head != None:
+            self.head.prev = node
+        self.head = node
+
+    def delete(self, node):
+        """ Deletes a node from the list """
+        if node.prev != None:
+            node.prev.next = node.next
+        else:
+            self.head = node.next
+        if node.next != None:
+            node.next.prev = node.prev
+        return node
+
+
+class OrderedLinkedList(DoublyLinkedList):
+
+    def insert(self, x):
+        """ Inserts an node with value x in the ordered list """
+        node = DoublyNode(x)
+        if self.head == None:
+            self.head = node
+            return
+        after = self.head # Node which goes after new node
+        while after != None and after.next != None and after.val < x:
+            after = after.next
+
+        if after.val >= x:
+            if after.prev != None:
+                after.prev.next = node
+                node.prev = after.prev
+            else:
+                self.head = node
+            node.next = after
+            after.prev = node
+        else: # Last node and val is less than x
+            after.next = node
+            node.prev = after
+
+    def print_reverse(self):
+        """ Prints list in reverse """
+        node = self.head
+        s = "["
+        while node != None and node.next != None:
+            node = node.next
+        while node != None:
+            if node == self.head:
+                s += f"{node.val}"
+            else:
+                s += f"{node.val}, "
+            node = node.prev
+        s += "]"
+        print(s)
+
 
 class CircularList:
     pass
+
 
 class Heap:
     """ Max heap data structure implementation """
