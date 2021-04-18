@@ -201,8 +201,58 @@ class OrderedLinkedList(DoublyLinkedList):
         print(s)
 
 
-class CircularList:
-    pass
+class CircularList(DoublyLinkedList):
+    
+    def __init__(self):
+        """ Constructor, creates a new empty list """
+        self.nil = DoublyNode(None) # Sentinel
+        self.nil.next = self.nil
+        self.nil.prev = self.nil
+
+    def search(self, x):
+        """ Finds the node with value x or None if not present """
+        node = self.nil.next
+        while node != self.nil and node.val != x:
+            node = node.next
+        return node
+
+    def insert(self, x):
+        """ Inserts an node with value x in the list """
+        node = DoublyNode(x)
+        node.next = self.nil.next
+        self.nil.next.prev = node
+        self.nil.next = node
+        node.prev = self.nil
+
+    def delete(self, node):
+        """ Deletes a node from the list """
+        node.prev.next = node.next
+        node.next.prev = node.prev
+
+    def __str__(self):
+        node = self.nil.next
+        s = "["
+        while node != self.nil:
+            if node.prev == self.nil:
+                s += f"{node.val}"
+            else:
+                s += f", {node.val}"
+            node = node.next
+        s += "]"
+        return s
+
+    def print_reverse(self):
+        """ Prints list in reverse """
+        node = self.nil.prev
+        s = "["
+        while node != self.nil:
+            if node.prev == self.nil:
+                s += f"{node.val}"
+            else:
+                s += f"{node.val}, "
+            node = node.prev
+        s += "]"
+        print(s)
 
 
 class Heap:
