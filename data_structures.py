@@ -311,3 +311,48 @@ class Heap:
         self.size += 1
         self.heap.append(-math.inf)
         self.increase_key(self.size-1, key)
+
+
+class HashTable:
+
+    def __init__(self, n):
+        """ Constructor, creates a hash table of size n """
+        self.n = n
+        self.bucket =  [None] * n
+
+    def h(self, key):
+        """ Hash function, using mod """
+        return key%self.n
+
+    def chained_insert(self, x):
+        """ Inserts element inside hash table """
+        k = self.h(x)
+        if not self.bucket[k]:
+            self.bucket[k] = DoublyLinkedList()
+        self.bucket[k].insert(x)
+    
+    def chained_search(self, x):
+        """ Searches element inside hash table """
+        k = self.h(x)
+        if self.bucket[k]:
+            return self.bucket[k].search(x)
+        return None
+
+    def chained_delete(self, node):
+        """ Deletes element from hash table """
+        k = self.h(node.val)
+        if self.bucket[k]:
+            self.bucket[k].delete(node)
+        return node
+    
+    def __str__(self):
+        s = ""
+        for i in range(self.n):
+            s += f"Bucket {i}: "
+            if self.bucket[i]:
+                s += f"{self.bucket[i]}"
+            else:
+                s += "[]"
+            if i != self.n-1:
+                s += "\n"
+        return s
