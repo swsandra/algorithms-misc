@@ -484,3 +484,16 @@ class BinaryTree:
     def __str__(self):
         """ Prints in order traversal """
         return self.inorder_tree_walk(self.root, "")
+
+
+class TreeNode:
+
+    def __init__(self, x):
+        """ Constructor, creates a new tree node with value x """
+        self.val = x
+        self.parent = None
+        self.left_child = None
+        self.next_sibling = None
+
+    def __str__(self):
+        return f"Tree node {self.val}"
