@@ -356,3 +356,131 @@ class HashTable:
             if i != self.n-1:
                 s += "\n"
         return s
+
+
+class BinaryTreeNode:
+
+    def __init__(self, x):
+        """ Constructor, creates a new tree node with value x """
+        self.val = x
+        self.parent = None
+        self.left = None
+        self.right = None
+
+    def __str__(self):
+        return f"Tree node {self.val}"
+
+
+class BinaryTree:
+
+    def __init__(self):
+        """ Constructor """
+        self.root = None
+
+    def search(self, node, x):
+        """ Searches value x inside the tree """
+        if node == None or node.val == x:
+            return node
+        if x < node.val:
+            return self.search(node.left, x)
+        return self.search(node.right, x)
+
+    def minimum(self, node=None):
+        """ Returns minimum of the tree """
+        if node == None:
+            node = self.root
+        while node != None and node.left != None:
+            node = node.left
+        return node
+
+    def maximum(self, node=None):
+        """ Returns maximum of the tree """
+        if node == None:
+            node = self.root
+        while node != None and node.right != None:
+            node = node.right
+        return node
+
+    def predecessor(self, node):
+        """ Returns predecessor of the node """
+        if node.left != None:
+            return self.maximum(node.left)
+        # Left subtree not empty
+        parent = node.parent
+        while parent and node == parent.left: # If its the left child, parent > node
+            node = parent
+            parent = node.parent
+        return parent
+
+    def successor(self, node):
+        """ Returns successor of the node """
+        if node.right != None:
+            return self.minimum(node.right)
+        # Right subtree not empty
+        parent = node.parent
+        while parent and node == parent.right: # If its the right child, parent <= node
+            node = parent
+            parent = node.parent
+        return parent
+
+    def insert(self, x):
+        """ Inserts a new node in the tree """
+        new = BinaryTreeNode(x)
+        if self.root == None:
+            self.root = new
+            return
+        parent = None
+        node = self.root
+        # Search for parent node
+        while node != None:
+            parent = node 
+            if x < node.val:
+                node = node.left
+            else:
+                node = node.right
+        # Update nodes' pointers
+        new.parent = parent
+        if x < parent.val:
+            parent.left = new
+        else:
+            parent.right = new
+
+    def transplant(self, u, v):
+        """ Replaces node u with node v inside the tree """
+        if u.parent == None:
+            self.root = v
+        elif u.parent.left == u:
+            u.parent.left = v
+        else:
+            u.parent.right = v
+        if v != None:
+            v.parent = u.parent
+
+    def delete(self, node):
+        """ Deletes a node from the tree """
+        if node.left == None:
+            self.transplant(node, node.right)
+        elif node.right == None:
+            self.transplant(node, node.left)
+        else: # Node has both children
+            s = self.minimum(node.right) # Successor
+            if s.parent != node:
+                self.transplant(s, s.right)
+                s.right = node.right
+                s.right.parent = s
+            self.transplant(node, s)
+            s.left = node.left
+            s.left.parent = s
+        return node
+
+    def inorder_tree_walk(self, node, s=""):
+        """ Returns a string of the inorder traversal of the tree """
+        if node != None:
+            s += self.inorder_tree_walk(node.left)
+            s += str(node.val)
+            s += self.inorder_tree_walk(node.right)
+        return s + " "
+
+    def __str__(self):
+        """ Prints in order traversal """
+        return self.inorder_tree_walk(self.root, "")
