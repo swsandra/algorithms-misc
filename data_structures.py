@@ -497,3 +497,36 @@ class TreeNode:
 
     def __str__(self):
         return f"Tree node {self.val}"
+
+
+class Node:
+    """ Graph Node """
+
+    def __init__(self, x):
+        """ Constructor, creates a new graoh node with value x """
+        self.vertex = x
+    
+    def __str__(self):
+        return f"Graph node {self.vertex}"
+
+
+class AMGraph:
+    """ Graph represented using an adjacency matrix """
+
+    def __init__(self, vertices, edges, is_directed=True):
+        """ Constructor
+        
+            + vertices: Number of vertices
+            + edges: List with pairs (x,y) representing edges, where 0 <= x,y < vertices
+            + is_directed: whether the graph is directed or not
+        """
+        self.v = vertices
+        self.graph = [([0]*vertices) for i in range(vertices)]
+        self.directed = is_directed
+        for edge in edges:
+            self.graph[edge[0]][edge[1]] += 1
+            if not is_directed:
+                self.graph[edge[1]][edge[0]] += 1
+    
+    def __str__(self):
+        return str(self.graph)

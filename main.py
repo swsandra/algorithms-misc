@@ -147,38 +147,45 @@ def data_structures_test():
     # print("Deleted ", H.chained_delete(H.chained_search(5)), "from ", H)
 
     # Binary Tree
-    T = BinaryTree()
-    T.insert(12)
-    T.insert(5)
-    T.insert(18)
-    T.insert(2)
-    T.insert(9)
-    T.insert(15)
-    T.insert(20)
-    T.insert(19)
-    T.insert(17)
-    T.insert(13)
-    print(T)
-    print("Minimum of the tree", T.minimum())
-    print("Maximum of the tree", T.maximum())
-    node = T.search(T.root, 15)
-    print("Searching 15 in tree. Found:", node,
-          "Predeccesor:", T.predecessor(node), "Successor:", T.successor(node))
-    node = T.search(T.root, 19)
-    print("Searching 19 in tree. Found:", node,
-          "Predeccesor:", T.predecessor(node), "Successor:", T.successor(node))
-    node = T.search(T.root, 9)
-    print("Searching 9 in tree. Found:", node,
-          "Predeccesor:", T.predecessor(node), "Successor:", T.successor(node))
-    node = T.search(T.root, 2)
-    print("Searching 2 in tree. Found:", node,
-          "Predeccesor:", T.predecessor(node), "Successor:", T.successor(node))
-    print("Searching 10 in tree. Found:", T.search(T.root, 10))
+    # T = BinaryTree()
+    # T.insert(12)
+    # T.insert(5)
+    # T.insert(18)
+    # T.insert(2)
+    # T.insert(9)
+    # T.insert(15)
+    # T.insert(20)
+    # T.insert(19)
+    # T.insert(17)
+    # T.insert(13)
+    # print(T)
+    # print("Minimum of the tree", T.minimum())
+    # print("Maximum of the tree", T.maximum())
+    # node = T.search(T.root, 15)
+    # print("Searching 15 in tree. Found:", node,
+    #       "Predeccesor:", T.predecessor(node), "Successor:", T.successor(node))
+    # node = T.search(T.root, 19)
+    # print("Searching 19 in tree. Found:", node,
+    #       "Predeccesor:", T.predecessor(node), "Successor:", T.successor(node))
+    # node = T.search(T.root, 9)
+    # print("Searching 9 in tree. Found:", node,
+    #       "Predeccesor:", T.predecessor(node), "Successor:", T.successor(node))
+    # node = T.search(T.root, 2)
+    # print("Searching 2 in tree. Found:", node,
+    #       "Predeccesor:", T.predecessor(node), "Successor:", T.successor(node))
+    # print("Searching 10 in tree. Found:", T.search(T.root, 10))
     # print("Deleted leaf", T.delete(T.search(T.root, 19)), "from ", T)
     # print("Deleted node with only left child", T.delete(T.search(T.root, 18)), "from ", T)
     # print("Deleted leaf", T.delete(T.search(T.root, 2)), "from ", T)
     # print("Deleted node with only right child", T.delete(T.search(T.root, 5)), "from ", T)
-    print("Deleted node with both children", T.delete(T.search(T.root, 18)), "from ", T)
+    # print("Deleted node with both children", T.delete(T.search(T.root, 18)), "from ", T)
+
+    # Graph represented using adjacency matrix
+    V = 6
+    E = [(0,0), (0,1), (0,4), (1,2), (1,4), (2,1), (3,2), (3,5), (4,3), (4,3), (5,3)]
+    G = AMGraph(V, E)
+    print(G)
+
 
 
 # sort_tests()
