@@ -530,3 +530,33 @@ class AMGraph:
     
     def __str__(self):
         return str(self.graph)
+
+
+class IMGraph:
+    """ Graph represented using an incidence matrix """
+
+    def __init__(self, vertices, edges, is_directed=True):
+        """ Constructor
+        
+            + vertices: Number of vertices
+            + edges: List with pairs (x,y) representing edges, where 0 <= x,y < vertices
+            + is_directed: whether the graph is directed or not
+        """
+        self.v = vertices
+        self.graph = [([0]*len(edges)) for i in range(vertices)]
+        for i in range(len(edges)):
+            if not is_directed:
+                self.graph[edges[i][0]][i] += 1
+                self.graph[edges[i][1]][i] += 1
+            else:
+                self.graph[edges[i][0]][i] += -1
+                self.graph[edges[i][1]][i] += 1
+    
+    def __str__(self):
+        s = "["
+        for i in range(len(self.graph)):
+            s += str(self.graph[i]) 
+            if i < len(self.graph) - 1:
+                s += "\n"
+        s += "]"
+        return s
