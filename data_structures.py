@@ -505,6 +505,7 @@ class Node:
     def __init__(self, x):
         """ Constructor, creates a new graoh node with value x """
         self.vertex = x
+        self.next = None
     
     def __str__(self):
         return f"Graph node {self.vertex}"
@@ -559,4 +560,28 @@ class IMGraph:
             if i < len(self.graph) - 1:
                 s += "\n"
         s += "]"
+        return s
+
+
+class ALGraph:
+    """ Graph represented using an adjacency list """
+
+    def __init__(self, vertices, edges, is_directed=True):
+        """ Constructor
+        
+            + vertices: Number of vertices
+            + edges: List with pairs (x,y) representing edges, where 0 <= x,y < vertices
+            + is_directed: whether the graph is directed or not
+        """
+        self.v = vertices
+        self.graph = {node: LinkedList() for node in range(vertices)}
+        for edge in edges:
+            self.graph[edge[0]].insert(edge[1])
+            if not is_directed:
+                self.graph[edge[1]].insert(edge[0])
+    
+    def __str__(self):
+        s = ""
+        for key in self.graph:
+            s += f"{key}: {self.graph[key]}\n"
         return s
