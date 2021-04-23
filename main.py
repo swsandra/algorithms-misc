@@ -1,6 +1,7 @@
 from search import *
 from sort import *
 from data_structures import *
+from graphs import *
 
 def sort_tests():
     A = [3,1,7,12,67,45,8,2,10,6,3]
@@ -186,7 +187,7 @@ def data_structures_test():
     is_directed = False
     # G = AMGraph(V, E, is_directed)
     # G = IMGraph(V, E, is_directed)
-    G = ALGraph(V, E, is_directed)
+    G = Graph(V, E, is_directed)
     # TODO test undirected graphs for previous implementations
     print(G)
 
