@@ -183,9 +183,10 @@ def data_structures_test():
     # Graph represented using adjacency matrix
     V = 6
     E = [(0,0), (0,1), (0,4), (1,4), (1,2), (2,1), (3,5), (5,3), (3,2), (4,3), (4,3)]
-    # G = AMGraph(V, E)
-    # G = IMGraph(V, E)
-    G = ALGraph(V, E)
+    is_directed = False
+    # G = AMGraph(V, E, is_directed)
+    # G = IMGraph(V, E, is_directed)
+    G = ALGraph(V, E, is_directed)
     # TODO test undirected graphs for previous implementations
     print(G)
 

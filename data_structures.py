@@ -530,7 +530,13 @@ class AMGraph:
                 self.graph[edge[1]][edge[0]] += 1
     
     def __str__(self):
-        return str(self.graph)
+        s = "["
+        for i in range(len(self.graph)):
+            s += str(self.graph[i]) 
+            if i < len(self.graph) - 1:
+                s += "\n"
+        s += "]"
+        return s
 
 
 class IMGraph:
@@ -577,7 +583,7 @@ class ALGraph:
         self.graph = {node: LinkedList() for node in range(vertices)}
         for edge in edges:
             self.graph[edge[0]].insert(edge[1])
-            if not is_directed:
+            if not is_directed and edge[0] != edge[1]:
                 self.graph[edge[1]].insert(edge[0])
     
     def __str__(self):
