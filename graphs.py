@@ -1,4 +1,6 @@
-from data_structures import LinkedList
+import math
+
+from data_structures import LinkedList, Queue
 
 class AMGraph:
     """ Graph represented using an adjacency matrix """
@@ -87,6 +89,28 @@ class Graph:
         if (not self.is_directed) and src != dest:
             self.graph[dest].insert(src)
 
-    def BFS(self):
-        """ Performs Breadth First Search on self.graph """
-        pass
+    def BFS(self, src):
+        """ Performs Breadth First Search on self.graph from :src: node """
+        # Initialization
+        visited = [False]*self.v # Whether the node i has been visited or not
+        d = [math.inf]*self.v # d[i] is distance from src to node i
+        p = [None]*self.v # p[i] is parent of node i in the traversal
+        traversal_order = [] # Final traversal order
+        q = Queue(self.v)
+
+        visited[src] = True
+        d[src] = 0
+        q.enqueue(src)
+
+        while not q.is_empty():
+            u = q.dequeue()
+            traversal_order.append(u)
+            adj = self.graph[u].head
+            while adj != None: # Adj vertices
+                if not visited[adj.val]:
+                    visited[adj.val] = True
+                    d[adj.val] = d[u] + 1
+                    p[adj.val] = u
+                    q.enqueue(adj.val)
+                adj = adj.next
+        return traversal_order, d, p

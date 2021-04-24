@@ -188,10 +188,15 @@ def data_structures_test():
     # G = AMGraph(V, E, is_directed)
     # G = IMGraph(V, E, is_directed)
     G = Graph(V, E, is_directed)
-    # TODO test undirected graphs for previous implementations
     print(G)
 
-
+def graphs_test():
+    V = 8
+    E = [(0,1), (0,4), (1,5), (2,3), (2,5), (2,6), (3,6), (3,7), (5,6), (6,7)]
+    G = Graph(V, E, False)
+    bfs = G.BFS(1)
+    print("Traversal order", bfs[0], "Distances", bfs[1], "Parents", bfs[2])
 
 # sort_tests()
-data_structures_test()
+# data_structures_test()
+graphs_test()
