@@ -114,3 +114,35 @@ class Graph:
                     q.enqueue(adj.val)
                 adj = adj.next
         return traversal_order, d, p
+
+    def DFS_Visit(self, src, time, d, f, p, visited, traversal_order):
+        """ Helper function for DFS """
+        time += 1
+        d[src] = time # Discovery time
+        visited[src] = True
+        traversal_order.append(src)
+        adj = self.graph[src].head
+        while adj != None: # Adj vertices
+            if not visited[adj.val]:
+                p[adj.val] = src
+                time = self.DFS_Visit(adj.val, time, d, f, p, visited, traversal_order)
+            adj = adj.next
+        time += 1
+        f[src] = time # Finalization time
+        return time
+
+    def DFS(self):
+        """ Performs Depth First Search on self.graph """
+        # Initialization
+        visited = [False]*self.v # Whether the node i has been visited or not
+        time = 0
+        d = [None]*self.v # d[i] is time of discovery of node i
+        f = [None]*self.v # f[i] is time of "closing" of node i
+        p = [None]*self.v # p[i] is parent of node i in the traversal
+        traversal_order = [] # Final traversal order
+
+        for i in range(self.v):
+            if not visited[i]:
+                time = self.DFS_Visit(i, time, d, f, p, visited, traversal_order)
+
+        return traversal_order, d, f, p

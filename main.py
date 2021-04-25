@@ -181,7 +181,7 @@ def data_structures_test():
     # print("Deleted node with only right child", T.delete(T.search(T.root, 5)), "from ", T)
     # print("Deleted node with both children", T.delete(T.search(T.root, 18)), "from ", T)
 
-    # Graph represented using adjacency matrix
+    # Graph representations
     V = 6
     E = [(0,0), (0,1), (0,4), (1,4), (1,2), (2,1), (3,5), (5,3), (3,2), (4,3), (4,3)]
     is_directed = False
@@ -191,11 +191,19 @@ def data_structures_test():
     print(G)
 
 def graphs_test():
-    V = 8
-    E = [(0,1), (0,4), (1,5), (2,3), (2,5), (2,6), (3,6), (3,7), (5,6), (6,7)]
-    G = Graph(V, E, False)
-    bfs = G.BFS(1)
-    print("Traversal order", bfs[0], "Distances", bfs[1], "Parents", bfs[2])
+    # BFS
+    # V = 8
+    # E = [(0,1), (0,4), (1,5), (2,3), (2,5), (2,6), (3,6), (3,7), (5,6), (6,7)]
+    # G = Graph(V, E, False)
+    # bfs = G.BFS(1)
+    # print("Traversal order", bfs[0], "Distances", bfs[1], "Parents", bfs[2])
+    
+    # DFS
+    V = 6
+    E = [(0,1), (0,3), (1,4), (2,4), (2,5), (3,1), (4,3), (5,5)]
+    G = Graph(V, E, True)
+    dfs = G.DFS()
+    print("Traversal order", dfs[0], "Discovery times", dfs[1], "Finalization times", dfs[2], "Parents", dfs[3])
 
 # sort_tests()
 # data_structures_test()
