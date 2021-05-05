@@ -199,11 +199,19 @@ def graphs_test():
     # print("Traversal order", bfs[0], "Distances", bfs[1], "Parents", bfs[2])
     
     # DFS
-    V = 6
-    E = [(0,1), (0,3), (1,4), (2,4), (2,5), (3,1), (4,3), (5,5)]
-    G = Graph(V, E, True)
+    # V = 6
+    # E = [(0,1), (0,3), (1,4), (2,4), (2,5), (3,1), (4,3), (5,5)]
+    # G = Graph(V, E, True)
+    # dfs = G.DFS()
+    # print("Traversal order", dfs[0], "Discovery times", dfs[1], "Finalization times", dfs[2], "Parents", dfs[3])
+
+    # Topological sorting
+    V = 8
+    E = [(0,3), (0,4), (1,3), (2,4), (2,7), (3,5), (3,6), (3,7), (4,6)]
+    G = Graph(V, E)
     dfs = G.DFS()
-    print("Traversal order", dfs[0], "Discovery times", dfs[1], "Finalization times", dfs[2], "Parents", dfs[3])
+    print("Topological sort", dfs[4])
+    
 
 # sort_tests()
 # data_structures_test()
