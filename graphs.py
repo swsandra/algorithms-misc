@@ -174,7 +174,7 @@ class Graph:
         dfs = self.DFS()
         T = self.transpose()
         topological_sort = dfs[4] # This is the descending order of vertices by finalization time
-        T_dfs = T.DFS()
+        T_dfs = T.DFS(topological_sort) # TODO probar porque esto me faltó ayer
         # sccs = []
         # # TODO Group sccs and return as lists
         # aux = {}
