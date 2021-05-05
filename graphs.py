@@ -133,8 +133,10 @@ class Graph:
         topological_sort.insert(0, src) # Topological sort
         return time
 
-    def DFS(self):
-        """ Performs Depth First Search on self.graph. Modified to return topological sort
+    def DFS(self, order = None):
+        """ Performs Depth First Search on self.graph. Modified to return topological sort.
+
+            If a list of the vertices is received in param :order:, that order will be used for DFS
         """
         # Initialization
         visited = [False]*self.v # Whether the node i has been visited or not
@@ -145,8 +147,40 @@ class Graph:
         traversal_order = [] # Final traversal order
         topological_sort = []
 
-        for i in range(self.v):
+        if order: # Some order specified of the vertices
+            vertices = order
+        else: # Normal order
+            vertices = range(self.v)
+
+        for i in vertices:
             if not visited[i]:
                 time = self.DFS_Visit(i, time, d, f, p, visited, traversal_order, topological_sort)
 
         return traversal_order, d, f, p, topological_sort
+
+    def transpose(self):
+        """ Returns the transpose graph of self.graph """
+        edges = []
+        for node in self.graph:
+            s = self.graph[node].head # Starting node to iterate through list
+            while s != None:
+                edges.append((s.val, node))
+                s = s.next
+        return Graph(self.v, edges)
+
+    def SCC(self):
+        """ Calculates strongly connected components of self.graph. Returns a list of
+            parents of nodes of transpose graph, which are SCC """
+        dfs = self.DFS()
+        T = self.transpose()
+        topological_sort = dfs[4] # This is the descending order of vertices by finalization time
+        T_dfs = T.DFS()
+        # sccs = []
+        # # TODO Group sccs and return as lists
+        # aux = {}
+        # parents = T_dfs[3] # Parents of nodes in transpose graph
+        # for node in range(self.v): # Group scc
+        #     if parents[node] == None: # Is a node of a scc
+        #         sccs.append([node])
+        return T_dfs[3] # Parents of nodes in transpose graph, which gives sccs
+

@@ -206,12 +206,29 @@ def graphs_test():
     # print("Traversal order", dfs[0], "Discovery times", dfs[1], "Finalization times", dfs[2], "Parents", dfs[3])
 
     # Topological sorting
+    # V = 8
+    # E = [(0,3), (0,4), (1,3), (2,4), (2,7), (3,5), (3,6), (3,7), (4,6)]
+    # G = Graph(V, E)
+    # dfs = G.DFS()
+    # print("Topological sort", dfs[4])
+
+    # SCC
     V = 8
-    E = [(0,3), (0,4), (1,3), (2,4), (2,7), (3,5), (3,6), (3,7), (4,6)]
+    # For example purposes
+    a = 0
+    b = 1
+    c = 2
+    d = 3
+    e = 4
+    f = 5
+    g = 6
+    h = 7
+    E = [(a,b), (b,c), (b,e), (b,f), (c,d), (c,g), (d,c), (d,h), (e,a), (e,f), (f,g), (g,f), (g,h), (h,h)]
     G = Graph(V, E)
-    dfs = G.DFS()
-    print("Topological sort", dfs[4])
-    
+    # T = G.transpose()
+    # print("Graph", G, "Transpose graph", T)
+    print("SCC nodes", G.SCC()) # a e b - c d - f g - h
+  
 
 # sort_tests()
 # data_structures_test()
