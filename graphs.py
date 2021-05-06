@@ -64,7 +64,7 @@ class IMGraph:
 class Graph:
     """ Graph represented using an adjacency list """
 
-    def __init__(self, vertices, edges=None, is_directed=True):
+    def __init__(self, vertices, edges=None, is_directed=True, weights=None):
         """ Constructor
         
             + vertices: Number of vertices
@@ -74,6 +74,10 @@ class Graph:
         self.v = vertices
         self.graph = {node: LinkedList() for node in range(vertices)}
         self.is_directed = is_directed
+        if weights:
+            self.w = weights
+        else:
+            self.w = []
         if edges:
             for edge in edges:
                 self.add_edge(edge[0], edge[1])
@@ -127,10 +131,25 @@ class Graph:
             if not visited[adj.val]:
                 p[adj.val] = src
                 time = self.DFS_Visit(adj.val, time, d, f, p, visited, traversal_order, topological_sort)
+            # For checking cycle of bipartite graph
+            # else: # was visited
+            #     # To check if there is a cycle
+            #     has_cycle = d[adj.val] and not f[adj.val]
+            #     # To check if is bipartite
+            #     if color[src] == color[adj.val]:
+            #         return False # not bipartite
             adj = adj.next
         time += 1
         f[src] = time # Finalization time
         topological_sort.insert(0, src) # Topological sort
+
+        # Tree arc (white) -  not d and not f
+        # Back arc (gray): from node to ancestor -  d and not f
+        # Forward arc: from node to descendant (black) -  d and f
+
+        # For path finding using a stack, when a node != dst is finalized,
+        # its popped from stack. If dst is reached, return stack
+
         return time
 
     def DFS(self, order = None):
@@ -184,3 +203,6 @@ class Graph:
         #         sccs.append([node])
         return T_dfs[3] # Parents of nodes in transpose graph, which gives sccs
 
+    ##
+    # Shortest paths
+    ##
