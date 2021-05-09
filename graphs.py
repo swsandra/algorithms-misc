@@ -64,7 +64,7 @@ class IMGraph:
 class Graph:
     """ Graph represented using an adjacency list """
 
-    def __init__(self, vertices, edges=None, is_directed=True, weights=None):
+    def __init__(self, vertices, edges=None, is_directed=True):
         """ Constructor
         
             + vertices: Number of vertices
@@ -74,13 +74,12 @@ class Graph:
         self.v = vertices
         self.graph = {node: LinkedList() for node in range(vertices)}
         self.is_directed = is_directed
-        if weights:
-            self.w = weights
-        else:
-            self.w = []
         if edges:
             for edge in edges:
-                self.add_edge(edge[0], edge[1])
+                w = 1
+                if len(edge) > 2: # Has weight associated
+                    w = edge[2]
+                self.add_edge(edge[0], edge[1], w)
     
     def __str__(self):
         s = ""
@@ -88,11 +87,20 @@ class Graph:
             s += f"{key}: {self.graph[key]}\n"
         return s
 
-    def add_edge(self, src, dest):
+    def add_edge(self, src, dest, w=1):
         """ Adds an edge from src to dest """
-        self.graph[src].insert(dest)
+        self.graph[src].insert((dest, w))
         if (not self.is_directed) and src != dest:
-            self.graph[dest].insert(src)
+            self.graph[dest].insert((src, w))
+
+    def get_weight(src, dst):
+        """ Returns the weight of an edge between src and dst """
+        adj = self.graph[src].head
+        while adj != None and adj.val[0] != dst: # Adj vertices
+            adj = adj.next
+        if adj:
+            return adj.val[1]
+        return math.inf # No edge between nodes
 
     def BFS(self, src):
         """ Performs Breadth First Search on self.graph from :src: node """
@@ -112,11 +120,12 @@ class Graph:
             traversal_order.append(u)
             adj = self.graph[u].head
             while adj != None: # Adj vertices
-                if not visited[adj.val]:
-                    visited[adj.val] = True
-                    d[adj.val] = d[u] + 1
-                    p[adj.val] = u
-                    q.enqueue(adj.val)
+                v = adj.val[0] # Vertex
+                if not visited[v]:
+                    visited[v] = True
+                    d[v] = d[u] + 1
+                    p[v] = u
+                    q.enqueue(v)
                 adj = adj.next
         return traversal_order, d, p
 
@@ -128,9 +137,10 @@ class Graph:
         traversal_order.append(src)
         adj = self.graph[src].head
         while adj != None: # Adj vertices
-            if not visited[adj.val]:
-                p[adj.val] = src
-                time = self.DFS_Visit(adj.val, time, d, f, p, visited, traversal_order, topological_sort)
+            v = adj.val[0] # Vertex
+            if not visited[v]:
+                p[v] = src
+                time = self.DFS_Visit(v, time, d, f, p, visited, traversal_order, topological_sort)
             # For checking cycle of bipartite graph
             # else: # was visited
             #     # To check if there is a cycle
@@ -183,7 +193,7 @@ class Graph:
         for node in self.graph:
             s = self.graph[node].head # Starting node to iterate through list
             while s != None:
-                edges.append((s.val, node))
+                edges.append((s.val[0], node))
                 s = s.next
         return Graph(self.v, edges)
 
@@ -206,3 +216,16 @@ class Graph:
     ##
     # Shortest paths
     ##
+    def initialize_src_vertex(self, src):
+        """ Initializes vertices  """
+        d = [math.inf] * self.v # Distances from src vertex
+        p = [None] * self.v # Parents
+        d[src] = 0
+        return d, p
+
+    def relax(src, dst, w, d, p):
+        """ Change the distance between two nodes """
+        if d[dst] > d[src] + self.get_weight(src, dst):
+            d[dst] = d[src] + self.get_weight(src, dst)
+            p[dst] = src
+
