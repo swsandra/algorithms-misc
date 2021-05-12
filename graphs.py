@@ -93,14 +93,17 @@ class Graph:
         if (not self.is_directed) and src != dest:
             self.graph[dest].insert((src, w))
 
-    def get_weight(src, dst):
-        """ Returns the weight of an edge between src and dst """
+    def get_weight(self, src, dst):
+        """ Returns the weights of all edges between src and dst """
         adj = self.graph[src].head
-        while adj != None and adj.val[0] != dst: # Adj vertices
+        weights = []
+        while adj != None: # Adj vertices
+            if adj.val[0] == dst:
+                weights.append(adj.val[1])
             adj = adj.next
-        if adj:
-            return adj.val[1]
-        return math.inf # No edge between nodes
+        if not weights:
+            weights.append(math.inf) # No edge between node) 
+        return weights
 
     def BFS(self, src):
         """ Performs Breadth First Search on self.graph from :src: node """
@@ -217,15 +220,38 @@ class Graph:
     # Shortest paths
     ##
     def initialize_src_vertex(self, src):
-        """ Initializes vertices  """
+        """ Initializes vertices from src vertex """
         d = [math.inf] * self.v # Distances from src vertex
         p = [None] * self.v # Parents
         d[src] = 0
         return d, p
 
-    def relax(src, dst, w, d, p):
-        """ Change the distance between two nodes """
-        if d[dst] > d[src] + self.get_weight(src, dst):
-            d[dst] = d[src] + self.get_weight(src, dst)
+    def relax(self, src, dst, w, d, p):
+        """ Updates the distance d between two nodes src and dst and parent of dst,
+            if the new calculated distance is shorter """
+        # weights = self.get_weight(src, dst) # There can be several edges between two same nodes
+        # for w in weights:
+        if d[dst] > d[src] + w:
+            d[dst] = d[src] + w
             p[dst] = src
+        return d, p
 
+    def BellmanFord(self, src):
+        """ Implements Bellman-Ford algorithm from src vertex. This algorithm
+            computes all minimal distances from src to all vertices. Can also detect
+            negative-cost cycles """
+        d, p = self.initialize_src_vertex(src)
+        for i in range(self.v): # V calls
+            for node in self.graph: # Check all edges E
+                adj = self.graph[node].head
+                while adj != None: # Adj vertices
+                    d, p = self.relax(node, adj.val[0], adj.val[1], d, p)
+                    adj = adj.next
+        # Detect negative cost cycle
+        for node in self.graph:
+            adj = self.graph[node].head
+            while adj != None: # Adj vertices
+                if d[adj.val[0]] > d[node] + adj.val[1]:
+                    return False, d, p
+                adj = adj.next
+        return True, d, p

@@ -213,21 +213,44 @@ def graphs_test():
     # print("Topological sort", dfs[4])
 
     # SCC
-    V = 8
-    # For example purposes
-    a = 0
-    b = 1
-    c = 2
-    d = 3
-    e = 4
-    f = 5
-    g = 6
-    h = 7
-    E = [(a,b), (b,c), (b,e), (b,f), (c,d), (c,g), (d,c), (d,h), (e,a), (e,f), (f,g), (g,f), (g,h), (h,h)]
+    # V = 8
+    # # For example purposes
+    # a = 0
+    # b = 1
+    # c = 2
+    # d = 3
+    # e = 4
+    # f = 5
+    # g = 6
+    # h = 7
+    # E = [(a,b), (b,c), (b,e), (b,f), (c,d), (c,g), (d,c), (d,h), (e,a), (e,f), (f,g), (g,f), (g,h), (h,h)]
+    # G = Graph(V, E)
+    # # T = G.transpose()
+    # # print("Graph", G, "Transpose graph", T)
+    # print("SCC nodes", G.SCC()) # a e b - c d - f g - h
+
+    # Shortest paths
+    # V = 3
+    # a = 0
+    # b = 1
+    # c = 2
+    # E = [(a,b,1), (a,b,3), (b,c,2), (b,a,10)]
+    # G = Graph(V, E)
+    # print("Weights from ", a, " to ", b, ": ", G.get_weight(a,b))
+    # print("Weights from ", b, " to ", c, ": ", G.get_weight(b,c))
+    # print("Weights from ", b, " to ", a, ": ", G.get_weight(b,a))
+
+    # Bellman-Ford
+    V = 5
+    s = 0
+    t = 1
+    x = 2
+    y = 3
+    z = 4
+    E = [(t,x,5), (t,y,8), (t,z,-4), (x,t,-2), (y,x,-3), (y,z,9), (z,x,7), (z,s,2), (s,t,6), (s,y,7)]
     G = Graph(V, E)
-    # T = G.transpose()
-    # print("Graph", G, "Transpose graph", T)
-    print("SCC nodes", G.SCC()) # a e b - c d - f g - h
+    free_neg_cycle, d, p = G.BellmanFord(s)
+    print("Bellman-Ford terminated with status:", free_neg_cycle, "Distances:", d, "Parents:", p)
   
 
 # sort_tests()
