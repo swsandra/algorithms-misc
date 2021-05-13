@@ -255,3 +255,15 @@ class Graph:
                     return False, d, p
                 adj = adj.next
         return True, d, p
+
+    def shortestPathsDAG(self, src):
+        """ Computes shortests paths from src vertex on directed acyclic graphs (DAGs). Faster
+            than Bellman-Ford """
+        topological_sort = self.DFS()[4]
+        d, p = self.initialize_src_vertex(src)
+        for node in topological_sort: # V calls
+            adj = self.graph[node].head
+            while adj != None: # Adj vertices
+                d, p = self.relax(node, adj.val[0], adj.val[1], d, p)
+                adj = adj.next
+        return d, p
