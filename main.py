@@ -253,16 +253,28 @@ def graphs_test():
     # print("Bellman-Ford terminated with status:", free_neg_cycle, "Distances:", d, "Parents:", p)
 
     # Shortest paths on DAG
+    # V = 5
+    # s = 0
+    # t = 1
+    # x = 2
+    # y = 3
+    # z = 4
+    # E = [(t,x,5), (t,y,8), (t,z,-4), (y,x,-3), (y,z,9), (z,x,7), (s,t,6), (s,y,7)]
+    # G = Graph(V, E)
+    # d, p = G.shortestPathsDAG(s)
+    # print("Shortest paths on DAG. Distances:", d, "Parents:", p)
+
+    # Dijkstra
     V = 5
     s = 0
     t = 1
     x = 2
     y = 3
     z = 4
-    E = [(t,x,5), (t,y,8), (t,z,-4), (y,x,-3), (y,z,9), (z,x,7), (s,t,6), (s,y,7)]
+    E = [(t,x,1), (t,y,2), (x,z,4), (y,t,3), (y,x,9), (y,z,2), (z,x,6), (z,s,7), (s,t,10), (s,y,5)]
     G = Graph(V, E)
-    d, p = G.shortestPathsDAG(s)
-    print("Shortest paths on DAG. Distances:", d, "Parents:", p)
+    d, p = G.Dijkstra(s)
+    print("Dijkstra distances:", d, "Parents:", p)
 
 # sort_tests()
 # data_structures_test()

@@ -1,4 +1,5 @@
 import math
+from heapq import heappush, heappop
 
 from data_structures import LinkedList, Queue
 from sort import quicksort
@@ -262,6 +263,34 @@ class Graph:
         topological_sort = self.DFS()[4]
         d, p = self.initialize_src_vertex(src)
         for node in topological_sort: # V calls
+            adj = self.graph[node].head
+            while adj != None: # Adj vertices
+                d, p = self.relax(node, adj.val[0], adj.val[1], d, p)
+                adj = adj.next
+        return d, p
+
+    def Dijkstra(self, src):
+        """ Computes shortest paths using Dijkstra algorithm. All weights must be non-negative """
+        d, p = self.initialize_src_vertex(src)
+        visited =  [False] * self.v
+        # S = set()
+        # Without the d array being global, the priority queue cannot be used
+        # prio_q = [] # Min priority queue
+        # for i in range(self.v):
+        #     heappush(prio_q, (d[i], i)) # Pushing distance with associated vertex
+
+        # while prio_q:
+        for i in range(self.v):
+            # min_dist, node = heappop(prio_q)
+            # Get smallest node distance
+            min_dist = math.inf
+            for i in range(self.v):
+                if d[i] < min_dist and not visited[i]:
+                    min_dist = d[i]
+                    node = i
+            # print(min_dist, node)
+            # S.add(node)
+            visited[node] = True
             adj = self.graph[node].head
             while adj != None: # Adj vertices
                 d, p = self.relax(node, adj.val[0], adj.val[1], d, p)
