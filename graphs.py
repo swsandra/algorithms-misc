@@ -296,3 +296,20 @@ class Graph:
                 d, p = self.relax(node, adj.val[0], adj.val[1], d, p)
                 adj = adj.next
         return d, p
+
+    def weights_matrix(self):
+        """ Returns a matrix containing the weights between all vertices """
+        w = [([math.inf]*self.v) for i in range(self.v)]
+        # Replace weights
+        for node in range(self.v):
+            w[node][node] = 0 # Main diagonal
+            adj = self.graph[node].head
+            while adj != None: # Adj vertices
+                if node != adj.val[0]:
+                    w[node][adj.val[0]] = adj.val[1]
+                adj = adj.next
+        return w
+
+    def FloydWarshall(self):
+        """ Computes shortest paths between all vertices of the graph using Floyd-Warshall algorithm """
+        pass

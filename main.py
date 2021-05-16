@@ -265,16 +265,22 @@ def graphs_test():
     # print("Shortest paths on DAG. Distances:", d, "Parents:", p)
 
     # Dijkstra
+    # V = 5
+    # s = 0
+    # t = 1
+    # x = 2
+    # y = 3
+    # z = 4
+    # E = [(t,x,1), (t,y,2), (x,z,4), (y,t,3), (y,x,9), (y,z,2), (z,x,6), (z,s,7), (s,t,10), (s,y,5)]
+    # G = Graph(V, E)
+    # d, p = G.Dijkstra(s)
+    # print("Dijkstra distances:", d, "Parents:", p)
+
+    # Floyd-Warshall
     V = 5
-    s = 0
-    t = 1
-    x = 2
-    y = 3
-    z = 4
-    E = [(t,x,1), (t,y,2), (x,z,4), (y,t,3), (y,x,9), (y,z,2), (z,x,6), (z,s,7), (s,t,10), (s,y,5)]
+    E = [(0,1,3), (0,2,8), (0,4,-4), (1,4,7), (1,3,1), (2,1,4), (3,0,2), (3,2,-5), (4,3,6)]
     G = Graph(V, E)
-    d, p = G.Dijkstra(s)
-    print("Dijkstra distances:", d, "Parents:", p)
+    print(G.weights_matrix())
 
 # sort_tests()
 # data_structures_test()
