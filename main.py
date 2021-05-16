@@ -280,7 +280,8 @@ def graphs_test():
     V = 5
     E = [(0,1,3), (0,2,8), (0,4,-4), (1,4,7), (1,3,1), (2,1,4), (3,0,2), (3,2,-5), (4,3,6)]
     G = Graph(V, E)
-    print(G.weights_matrix())
+    # print(G.weights_matrix())
+    print("Floy-Warshall distances between all nodes:", G.FloydWarshall())
 
 # sort_tests()
 # data_structures_test()

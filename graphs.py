@@ -312,4 +312,9 @@ class Graph:
 
     def FloydWarshall(self):
         """ Computes shortest paths between all vertices of the graph using Floyd-Warshall algorithm """
-        pass
+        w = self.weights_matrix()
+        for node in range(self.v): # Consider all vertices in the set of intermediate vertices
+            for i in range(self.v): # Pick all vertices as src
+                for j in range(self.v): # Pick all vertices as dst
+                    w[i][j] = min(w[i][j], w[i][node]+w[node][j])
+        return w
